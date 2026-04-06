@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node *createNode(int data)
+{
+    struct node *n;
+    n = (struct node *)malloc(sizeof(struct node));
+    n->data = data;
+    n->left = NULL;
+    n->right = NULL;
+    return n;
+}
+// preorder traversal of a binary tree
+void preorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        printf("%d", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+// postorder traversal of a binary tree
+void postorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d", root->data);
+    }
+}
+// inorder traversal of a binary tree
+void inorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%d", root->data);
+        inorder(root->right);
+    }
+}
+//checking if a binary tree is a binary tree or not 
+int isBST(struct  node* root){
+    static struct node *prev = NULL;
+    if(root!=NULL){
+        if(!isBST(root->left)){
+            return 0;
+        }
+        if(prev!=NULL && root->data <= prev->data){
+            return 0;
+        }
+        prev = root;
+        return isBST(root->right);
+    }
+    else{
+        return 1;
+    }
+}
+
+int main()
+{
+    struct node *p = createNode(2);
+    struct node *p1 = createNode(3);
+    struct node *p2 = createNode(6);
+
+    p->left = p1;
+    p->right = p2;
+
+    printf("PREORDER TRAVERSAL OF A BINARY TREE\n");
+    preorder(p);
+    printf("\n");
+
+    printf("POSTORDER TRSVERSAL OF A BINARY TREE\n");
+    postorder(p);
+    printf("\n");
+
+    printf("INORDER TRAVERSAL OF A BINARY TREE \n");
+    inorder(p);
+    printf("\n");
+
+     // printf("%d", isBST(p)); 
+    if(isBST(p)){
+        printf("This is a bst" );
+    }
+    else{
+        printf("This is not a bst");
+    }
+    return 0;
+}
