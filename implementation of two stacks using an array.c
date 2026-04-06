@@ -1,59 +1,72 @@
 #include <stdio.h>
-#define MAX 20
+#define MAX 15
 
 int arr[MAX];
 int top1 = -1;
 int top2 = MAX;
 
-void push1(int x){
+int  push1(int x){
     if(top1+1 == top2){
         printf("STACK IS FULL\n");
         printf("OVERFLOW!\n");
         return;
     }
     top1++;
-     return arr[top1] = x;
+    return arr[top1] = x;
 }
 
-void push2(int x){
+int  push2(int x){
     if(top1+1 == top2){
         printf("STACK IS FULL\n");
         printf("OVERFLOW!\n"); 
-        return;
+        return -1;
     }
     top2--;
     return  arr[top2] = x;
 }
 
-int pop1(){
+int  pop1(){
     if(top1 == -1){
         printf("STACK IS EMPTY\n");
         printf("UNDERFLOW\n");
         return -1;
     }
-    printf("POPPED STACK ELEMENT : %d",arr[top1]);
+    int value = arr[top1];
+    printf("POPPED STACK ELEMENT : %d",value);
     top1--;
+    return value;
+   
 }
 
-int pop2(){
+ int  pop2(){
     if(top2 == MAX){
         printf("STACK IS EMPTY \n)");
         printf("UNDERFLOW\n");
         return -1;
     }
-    printf("POPPED STACK ELEMENT : %d",arr[top2]);
-    top2--;
+    int value = arr[top2];
+    printf("POPPED STACK ELEMENT : %d",value);
+    top2++;
+    return value;
 }
 
 int display(){
-    printf("ARRAY\n");
-    for(int i = 0; i<MAX ; i++){
-        printf("%d ",arr[i]);
-    }
-    printf("\n");
+   printf("STACK1\n");
+for (int i = 0; i <= top1; i++)
+{
+    printf("%d", arr[i]);
+}
+ printf("STACK2\n");
+for(int i = MAX-1 ; i>= top2; i--){
+printf("%d",arr[i]);
+}
+printf("\n");
 }
 int main() {
-    push1(12);
+    int num;
+    printf("Enter a number to be pushed\n");
+    scanf("%d",&num);
+    push1(num);
     push1(25);
     push1(15);
     push1(55);
